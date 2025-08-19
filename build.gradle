@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.google.protobuf' version '0.9.4'
+}
+
+group 'com.blockchain'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    // FIX: point to the correct package + class
+    mainClass = 'com.blockchain.Main'
+}
+
+dependencies {
+    // Add the missing annotation API dependency
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
+    // Add the Guava dependency for cryptographic hashing
+    implementation 'com.google.guava:guava:33.2.1-jre'
+
+    // gRPC dependencies for communication
+    implementation 'io.grpc:grpc-netty-shaded:1.63.0'
+    implementation 'io.grpc:grpc-protobuf:1.63.0'
+    implementation 'io.grpc:grpc-stub:1.63.0'
+
+    // Add the generated gRPC code to our source path
+    compileOnly 'io.grpc:grpc-api:1.63.0'
+    runtimeOnly 'io.grpc:grpc-netty-shaded:1.63.0'
+    compileOnly 'com.google.protobuf:protobuf-java:3.25.1'
+}
+
+// Correct Protobuf configuration to generate gRPC code
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.63.0"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}

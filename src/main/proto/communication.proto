@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.blockchain.communication";
+option java_outer_classname = "CommunicationProto";
+
+service NodeCommunication {
+  rpc Ping(PingRequest) returns (PingResponse);
+  rpc SendPBFTMessage(PBFTMessage) returns (Ack);
+  rpc Send2PCMessage(TwoPhaseCommitMessage) returns (Ack);
+  rpc SendVote(VoteMessage) returns (Ack);
+}
+
+message PingRequest {
+  int32 senderId = 1;
+}
+
+message PingResponse {
+  string message = 1;
+}
+
+message PrePrepareProto {
+  int32 senderId = 1;
+  int32 viewNumber = 2;
+  int32 sequenceNumber = 3;
+  bytes block = 4;
+}
+
+message PrepareProto {
+  int32 senderId = 1;
+  int32 viewNumber = 2;
+  int32 sequenceNumber = 3;
+  string blockHash = 4;
+}
+
+message CommitProto {
+  int32 senderId = 1;
+  int32 viewNumber = 2;
+  int32 sequenceNumber = 3;
+  string blockHash = 4;
+}
+
+message PBFTMessage {
+  oneof msg {
+    PrePrepareProto prePrepare = 1;
+    PrepareProto prepare = 2;
+    CommitProto commit = 3;
+  }
+}
+
+// Updated message for PrepareTx to include transaction details
+message PrepareTxProto {
+  int32 senderId = 1;
+  string transactionId = 2;
+  string senderAccountId = 3;
+  string receiverAccountId = 4;
+  double amount = 5;
+}
+
+message CommitTxProto {
+  int32 senderId = 1;
+  string transactionId = 2;
+}
+
+message TwoPhaseCommitMessage {
+  oneof msg {
+    PrepareTxProto prepareTx = 1;
+    CommitTxProto commitTx = 2;
+  }
+}
+
+message VoteMessage {
+  int32 senderId = 1;
+  string transactionId = 2;
+  bool vote = 3;
+}
+
+message Ack {
+  string message = 1;
+}

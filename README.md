@@ -67,4 +67,4 @@ This feature is implemented directly within the 2PC protocol. During the `Prepar
 
 ### 🙏 Conclusion & Acknowledgments
 
-This project represents the culmination of a wonderful and challenging journey. It demonstrates that with a step-by-step, incremental approach, it's possible to build a complex, multi-component distributed system from scratch. This project was made possible by the continuous and patient guidance of my AI assistant, who helped me debug and understand every single step along the way.
+This project represents the culmination of a wonderful and challenging journey. It demonstrates that with a step-by-step, incremental approach, it's possible to build a complex, multi-component distributed system from scratch. 

@@ -68,3 +68,6 @@ This feature is implemented directly within the 2PC protocol. During the `Prepar
 ### 🙏 Conclusion & Acknowledgments
 
 This project represents the culmination of a wonderful and challenging journey. It demonstrates that with a step-by-step, incremental approach, it's possible to build a complex, multi-component distributed system from scratch. 
+
+### A Small Walkthrough
+[![Video](https://vumbnail.com/1129734576.jpg)](https://vimeo.com/1129734576)
